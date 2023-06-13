@@ -1,5 +1,5 @@
 # Use an official Java runtime as the base image
-FROM openjdk:11
+FROM openjdk:8
 # Set the working directory in the container
 WORKDIR /app
 # Copy the application JAR file into the container
