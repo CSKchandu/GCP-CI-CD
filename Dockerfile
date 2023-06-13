@@ -1,23 +1,10 @@
-FROM openjdk:8-jdk-alpine
-
-ARG spring_config_label
-
-ARG active_profile
-
-ARG spring_config_url
-
-ENV active_profile_env=${active_profile}
-
-ENV spring_config_url_env=${spring_config_url}
-
-ENV spring_config_label_env=${spring_config_label}
-
-#RUN export http_proxy=http://172.16.11.167:3128 && export https_proxy=http://172.16.11.167:3128 && apk add tzdata
-
-#RUN cp /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && echo "Asia/Kolkata" > /etc/TZ
-
-copy docker/book-appointment-service-*.jar book-appointment-service.jar
-
-EXPOSE 7072
-
-CMD java -jar -Dspring.profiles.active=${active_profile_env} -Dspring.cloud.config.label=${spring_config_label_env} -Dspring.cloud.config.uri=${spring_config_url_env} book-appointment-service.jar 
+# Use an official Java runtime as the base image
+FROM openjdk:11
+# Set the working directory in the container
+WORKDIR /app
+# Copy the application JAR file into the container
+COPY ./target/my-application.jar /app/my-application.jar
+# Expose the port that the application listens on
+EXPOSE 8080
+# Set the command to run when the container starts
+CMD ["java", "-jar", "/app/my-application.jar"]
